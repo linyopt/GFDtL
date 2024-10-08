@@ -4,10 +4,24 @@ This repository contains the implementation of the **Group Fused D-trace LASSO (
 The estimator is obtained by solving the following optimization problem:
 
 $$
-\min_{\Theta_t\succeq \epsilon I_p, 1 \leq t \leq T}\{\frac{1}{T}\sum_{t=1}^{T} \left[\text{tr}(\frac{1}{2}\Theta_t^2 X_tX^\top_t) - \text{tr}(\Theta_t)\right] + \lambda_{1T}\overset{T}{\underset{t=1}{\sum}}\underset{u\neq v}{\sum}|\Theta_{uv,t}|+\lambda_{2T}\overset{T}{\underset{t=2}{\sum}} \|\Theta_t - \Theta_{t-1}\|_F\}.
+\min_{\Theta_t\succeq \epsilon I_p, 1 \leq t \leq T}\{\frac{1}{T}\sum_{t=1}^{T} \left[\text{tr}(\frac{1}{2}\Theta_t^2 X_tX^\top_t) - \text{tr}(\Theta_t)\right] + \lambda_1\sum_{t=1}^T \sum_{u \neq v}|\Theta_{uv,t}|+\lambda_2\sum_{t=1}^{T-1} \|\Theta_{t+1} - \Theta_t\|_F\}.
 $$
 
-where $\mathcal{X}\_T=(X_1,\ldots,X_T)$ is the sample, $\lambda_{1,T},\lambda_{2,T}$ are the tuning parameters.
+where $\mathcal{X}\_T=(X_1,\ldots,X_T)$ is the sample, $\lambda_1,\lambda_2$ are the tuning parameters.
+
+For further details on the problem and the algorithm, please refer to [our paper](https://arxiv.org/abs/2410.04057):
+
+```bibtex
+@article{LPPT24GFDtL,
+      title={Break recovery in graphical networks with {D}-trace loss}, 
+      author={Ying Lin and Benjamin Poignard and Ting Kei Pong and Akiko Takeda},
+      year={2024},
+      eprint={2410.04057},
+      archivePrefix={arXiv},
+      primaryClass={math.ST},
+      url={https://arxiv.org/abs/2410.04057}, 
+}
+```
 
 ## License
 
@@ -18,7 +32,7 @@ where $\mathcal{X}\_T=(X_1,\ldots,X_T)$ is the sample, $\lambda_{1,T},\lambda_{2
 1. Clone this repository.
 
    ```bash
-   git clone https://github.com/linyopt/GFDtL.git
+   git clone --recursive https://github.com/linyopt/GFDtL.git
    cd GFDtL
    ```
 
